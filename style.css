@@ -1,0 +1,72 @@
+body {
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-color: #222222;
+}
+
+.parent {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    gap: 30px;
+}
+
+.parent .button {
+    display: flex;
+    justify-content: center;
+}
+
+.parent .cards {
+    display: flex;
+}
+
+.book.detail {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.book.detail .bookItem {
+    background-color: #101010ab;
+    border-radius: 12px;
+    font-family: "Roboto", serif;
+    font-size: 20px;
+    color: #cccccc;
+    display: grid;
+    padding: 20px;
+    gap: 8px;
+}
+
+.book.detail .bookItem:hover {
+    box-shadow: -8px 8px 10px aqua;
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    transition: box-shadow 0.1s ease-in-out, bottom 0.1s ease-in-out, left 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.book.detail .bookItem:not(:hover) {
+    box-shadow: none;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transition: box-shadow 0.3s ease-in-out, bottom 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.book.detail .bookItem:active {
+    box-shadow: -8px 8px 10px yellow;
+}
+
+strong {
+    color: white;
+}
+
+.hiddenForm {
+    height: 100vh;
+    width: 50vw;
+    background-color: white;
+    position: fixed;
+}
