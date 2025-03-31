@@ -10,6 +10,7 @@ body {
     flex-direction: column;
     margin: 30px;
     gap: 30px;
+    font-family: "Roboto", serif;
 }
 
 .parent .button {
@@ -29,9 +30,8 @@ body {
 }
 
 .book.detail .bookItem {
-    background-color: #101010ab;
+    background-color: #090909a1;
     border-radius: 12px;
-    font-family: "Roboto", serif;
     font-size: 20px;
     color: #cccccc;
     display: grid;
@@ -65,8 +65,146 @@ strong {
 }
 
 .hiddenForm {
-    height: 100vh;
-    width: 50vw;
-    background-color: white;
-    position: fixed;
+    display: grid;
+    grid-template: 0.25fr 6fr / minmax(380px, 2fr) 1.5fr;
+    row-gap: 15px;
+    padding: 20px;
+    padding-left: 50px;
+    min-width: 360px;
+}
+
+.hiddenForm form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: white;
+    border-right: solid 1px #a1a1a1;
+}
+
+.hiddenForm form > div {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2px;
+}
+
+.hiddenForm form > div > label {
+    font-weight: bold;
+}
+
+.hiddenForm form > div > input {
+    width: 250px;
+    height: 30px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    background-color: #222222;
+    font-size: 15px;
+}
+
+.hiddenForm form > div > input::placeholder {
+    color: #a1a1a1;
+}
+
+.hiddenForm form > div > input:focus {
+    border: solid 1px aqua;
+}
+
+.hiddenForm form > div > input[type] {
+    color: white;
+    padding-left: 5px;
+}
+
+.hiddenForm form > div span {
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+}
+
+.hiddenForm form > div span:hover {
+    color: aqua;
+    transition: color 0.3s ease-in-out;
+}
+
+.hiddenForm form > div #spanName {
+    top: 93px;
+    left: 340px;
+}
+
+.hiddenForm form > div #spanAuthor {
+    top: 159px;
+    left: 340px;
+}
+
+.hiddenForm form > div #spanPages {
+    top: 225px;
+    left: 340px;
+}
+
+.hiddenForm form > div > input:required:placeholder-shown + span::before {
+    content: "REQUIRED";
+    opacity: 1;
+    background-color: #50505090;
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    transition: opacity 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.hiddenForm form > div > input:required:not(:placeholder-shown) + span::before {
+    content: "REQUIRED";
+    opacity: 0;
+    background-color: transparent;
+    padding: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    transition: opacity 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+.hiddenForm form > fieldset {
+    width: 227px;
+    height: 15px;
+    border-radius: 5px;
+    margin-top: 5px;
+    justify-items: center;
+}
+
+.hiddenForm form > fieldset:hover {
+    border: solid 1.9px aqua;
+}
+
+label[for="bookNotRead"] {
+    padding-left: 30px;
+}
+
+.hiddenForm form fieldset input {
+}
+
+.hiddenForm #close {
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+}
+
+.hiddenForm #close:hover {
+    cursor: pointer;
+    background-color: #95959550;
+}
+
+.hiddenForm #close img {
+    height: 25px;
+    width: 25px;
+    position: relative;
+    right: 3.25px;
+    top: 2px;
+    filter: invert(100%);
+}
+
+.hiddenForm form {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
 }
