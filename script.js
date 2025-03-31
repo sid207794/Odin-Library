@@ -8,11 +8,7 @@ function Book(name, author, pages, read, id) {
     this.name = name;
     this.author = author;
     this.pages = pages;
-    if (read === true) {
-        this.read = "Read";
-    } else {
-        this.read = "Not Read";
-    }
+    this.read = read;
     this.id = id;
 }
 
@@ -103,6 +99,14 @@ newBook.addEventListener("click", () => {
         blur.style.opacity = "1";
     }, 10);
 
+    const formHeading = document.createElement("div");
+    formHeading.setAttribute("class", "formTitle");
+    formHeading.textContent = "BOOK DETAILS";
+
+    const formReceiptHeading = document.createElement("div");
+    formReceiptHeading.setAttribute("class", "receipt");
+    formReceiptHeading.textContent = "RECEIPT";
+
     const closeButton = document.createElement("button");
     closeButton.setAttribute("id", "close");
     closeButton.innerHTML = `<img src="./images/close.svg" alt="close">`;
@@ -115,6 +119,7 @@ newBook.addEventListener("click", () => {
 
     const labelName = document.createElement("label");
     labelName.setAttribute("for", "bookName");
+    labelName.setAttribute("id", "labelName");
     labelName.textContent = "BOOK NAME";
 
     const inputName = document.createElement("input");
@@ -133,6 +138,7 @@ newBook.addEventListener("click", () => {
 
     const labelAuthor = document.createElement("label");
     labelAuthor.setAttribute("for", "bookAuthor");
+    labelAuthor.setAttribute("id", "labelAuthor");
     labelAuthor.textContent = "AUTHOR";
 
     const inputAuthor = document.createElement("input");
@@ -151,6 +157,7 @@ newBook.addEventListener("click", () => {
 
     const labelPages = document.createElement("label");
     labelPages.setAttribute("for", "bookPages");
+    labelPages.setAttribute("id", "labelPages");
     labelPages.textContent = "PRINT LENGTH";
 
     const inputPages = document.createElement("input");
@@ -169,6 +176,8 @@ newBook.addEventListener("click", () => {
     bookReadInput.setAttribute("id", "inputRead");
 
     const fieldset = document.createElement("fieldset");
+    const legend = document.createElement("legend");
+    legend.textContent = "STATUS";
 
     const labelRead = document.createElement("label");
     labelRead.setAttribute("for", "bookRead");
@@ -178,6 +187,7 @@ newBook.addEventListener("click", () => {
     inputRead.setAttribute("type", "radio");
     inputRead.setAttribute("id", "bookRead");
     inputRead.setAttribute("name", "status");
+    inputRead.setAttribute("value", "Read");
 
     const labelNotRead = document.createElement("label");
     labelNotRead.setAttribute("for", "bookNotRead");
@@ -187,13 +197,23 @@ newBook.addEventListener("click", () => {
     inputNotRead.setAttribute("type", "radio");
     inputNotRead.setAttribute("id", "bookNotRead");
     inputNotRead.setAttribute("name", "status");
+    inputNotRead.setAttribute("value", "Not Read");
+
+    // Add Book Button
+    const addToList = document.createElement("button");
+    addToList.classList.add("addBook");
+    addToList.setAttribute("type", "submit");
+    addToList.textContent = "Add Book >";
     
+    hiddenForm.appendChild(formHeading);
+    hiddenForm.appendChild(formReceiptHeading);
     hiddenForm.appendChild(closeButton);
     hiddenForm.appendChild(formElement);
     formElement.appendChild(bookNameInput);
     formElement.appendChild(bookAuthorInput);
     formElement.appendChild(bookPagesInput);
     formElement.appendChild(fieldset);
+    fieldset.appendChild(legend);
     fieldset.appendChild(bookReadInput);
     bookNameInput.appendChild(labelName);
     bookNameInput.appendChild(inputName);
@@ -208,8 +228,8 @@ newBook.addEventListener("click", () => {
     bookReadInput.appendChild(inputRead);
     bookReadInput.appendChild(labelNotRead);
     bookReadInput.appendChild(inputNotRead);
+    formElement.appendChild(addToList);
     
-
     // Close Button
     const closeHiddenForm = document.querySelector("#close");
 
@@ -231,7 +251,84 @@ newBook.addEventListener("click", () => {
             blur.remove();
         }, 120);
     });
+
+    // Label Resize
+    const inputN = document.querySelector("form div input#bookName");
+    const inputA = document.querySelector("form div input#bookAuthor");
+    const inputP = document.querySelector("form div input#bookPages");
+    const labelN = document.querySelector("form div label#labelName");
+    const labelA = document.querySelector("form div label#labelAuthor");
+    const labelP = document.querySelector("form div label#labelPages");
+
+    inputN.addEventListener("focus", () => {
+        labelN.classList.add("smallSize");
+
+        inputN.addEventListener("blur", () => {
+            if (!inputN.value) {
+                labelN.classList.remove("smallSize");
+            }
+        });
+    });
+
+    inputA.addEventListener("focus", () => {
+        labelA.classList.add("smallSize");
+
+        inputA.addEventListener("blur", () => {
+            if (!inputA.value) {
+                labelA.classList.remove("smallSize");
+            }
+        });
+    });
+
+    inputP.addEventListener("focus", () => {
+        labelP.classList.add("smallSize");
+
+        inputP.addEventListener("blur", () => {
+            if (!inputP.value) {
+                labelP.classList.remove("smallSize");
+            }
+        });
+    });
+
+    // Receipt
+    const bookReceipt = document.createElement("div");
+    bookReceipt.setAttribute("id", "receiptItems");
+    hiddenForm.appendChild(bookReceipt);
+
+    function addBookToReceipt() {
+        let i = myLibrary.length;
+        const bookReceiptDiv = document.createElement("div");
+        bookReceiptDiv.setAttribute("id", `book${i}`);
+        bookReceiptDiv.setAttribute("class", "bookItem");
+        bookReceipt.appendChild(bookReceiptDiv);
+
+        const bookReceiptName = document.createElement("div");
+        bookReceiptName.setAttribute("id", "name");
+        const name = myLibrary[i-1].name;
+        bookReceiptName.innerHTML = `<strong>Name:</strong> ${name}`;
+        bookReceiptDiv.appendChild(bookReceiptName);
+
+        const bookReceiptAuthor = document.createElement("div");
+        bookReceiptAuthor.setAttribute("id", "author");
+        const author = myLibrary[i-1].author;
+        bookReceiptAuthor.innerHTML = `<strong>Author:</strong> ${author}`;
+        bookReceiptDiv.appendChild(bookReceiptAuthor);
+
+        const bookReceiptRead = document.createElement("div");
+        bookReceiptRead.setAttribute("id", "read");
+        const read = myLibrary[i-1].read;
+        bookReceiptRead.innerHTML = `<strong>Status:</strong> ${read}`;
+        bookReceiptDiv.appendChild(bookReceiptRead);
+    }
+
+    formElement.addEventListener("submit", function (event) {
+        const selectedRadio = document.querySelector('input[name="status"]:checked');
+        const inputR = selectedRadio ? selectedRadio.value : null;
+        addBookToLibrary(inputN.value, inputA.value, inputP.value, inputR, crypto.randomUUID());
+        addBookToReceipt();
+        event.preventDefault();
+        event.target.reset();
+    });
 });
 
-addBookToLibrary("name", "author", "pages", true, crypto.randomUUID());
-displayBookInLibrary();
+console.log(myLibrary);
