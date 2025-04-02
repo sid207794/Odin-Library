@@ -18,6 +18,91 @@ body {
     justify-content: center;
 }
 
+.heading {
+    background-color: #111111;
+    font-family: "Roboto", serif;
+    padding: 20px;
+}
+
+.headingText {
+    font-size: 80px;
+    font-weight: 900;
+    color: aqua;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    letter-spacing: 30px;
+    cursor: default;
+    overflow-x: hidden;
+}
+
+.headingTitle:hover {
+    letter-spacing: 50px;
+    color: black;
+    text-shadow: -4px -2px 0 aqua;
+    transition: letter-spacing 0.5s ease-in-out, color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+}
+
+.headingTitle:not(:hover) {
+    letter-spacing: 30px;
+    color: aqua;
+    text-shadow: none;
+    transition: letter-spacing 0.5s ease-in-out, color 0.5s ease-in-out, text-shadow 0.5s ease-in-out;
+}
+
+.headingUser {
+    color: white;
+    letter-spacing: 30px;
+    text-shadow: none;
+}
+
+.parent .button #newBook {
+    height: 40px;
+    width: 120px;
+    background-color: aqua;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.parent .button #newBook:hover {
+    background-color: transparent;
+    color: aqua;
+    border: solid 2px aqua ;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out, border 0.1s ease-in-out;
+}
+
+.parent .button #newBook:not(:hover) {
+    background-color: aqua;
+    color: black;
+    border: none;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out, border 0.1s ease-in-out;
+}
+
+.shelf {
+    text-align: center;
+    margin-left: 43px;
+    color: aqua;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 50px;
+    overflow-x: hidden;
+    cursor: default;
+}
+
+.shelf:hover {
+    letter-spacing: 20px;
+    transition: letter-spacing 0.3s ease-in-out;
+}
+
+.shelf:not(:hover) {
+    letter-spacing: 50px;
+    transition: letter-spacing 0.3s ease-in-out;
+}
+
 .parent .cards {
     display: flex;
 }
@@ -37,6 +122,51 @@ body {
     display: grid;
     padding: 20px;
     gap: 8px;
+    grid-template-columns: 6fr 1fr;
+    cursor: default;
+}
+
+.bookItem #name {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.bookItem #name {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.bookItem #name {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+
+.bookItem #name {
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+
+.bookItem .deleteShelf {
+    grid-column: 2 / 3;
+    grid-row: 1 / 5;
+    margin: auto;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+}
+
+.bookItem .deleteShelf img {
+    position: relative;
+    top: 2px;
+    left: 1px;
+    filter: invert(40%);
+    cursor: pointer;
+}
+
+.bookItem .deleteShelf img:hover {
+    filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
 }
 
 .book.detail .bookItem:hover {
@@ -45,7 +175,6 @@ body {
     bottom: 5px;
     left: 5px;
     transition: box-shadow 0.1s ease-in-out, bottom 0.1s ease-in-out, left 0.1s ease-in-out;
-    cursor: pointer;
 }
 
 .book.detail .bookItem:not(:hover) {
@@ -56,17 +185,13 @@ body {
     transition: box-shadow 0.3s ease-in-out, bottom 0.3s ease-in-out, left 0.3s ease-in-out;
 }
 
-.book.detail .bookItem:active {
-    box-shadow: -8px 8px 10px yellow;
-}
-
 .hiddenForm {
     display: grid;
     grid-template: 0.25fr 6fr / minmax(420px, 2fr) 1.5fr 0.2fr;
     row-gap: 15px;
     padding: 20px;
     padding-left: 50px;
-    min-width: 400px;
+    min-width: 445px;
 }
 
 .hiddenForm form {
@@ -127,7 +252,6 @@ body {
 
 .hiddenForm form > div span:hover {
     color: aqua;
-    transition: color 0.3s ease-in-out;
 }
 
 .hiddenForm form > div #spanName {
@@ -177,13 +301,21 @@ body {
     border: solid 1.9px aqua;
 }
 
+.hiddenForm form > fieldset label {
+    cursor: pointer;
+}
+
+.hiddenForm form > fieldset input {
+    cursor: pointer;
+}
+
 label[for="bookNotRead"] {
     padding-left: 30px;
 }
 
 .hiddenForm #close {
     grid-row: 1 / 2;
-    grid-column: 1 / 4;
+    grid-column: 3 / 4;
     width: 40px;
     height: 40px;
     margin-left: auto;
@@ -195,6 +327,10 @@ label[for="bookNotRead"] {
 .hiddenForm #close:hover {
     cursor: pointer;
     background-color: #95959550;
+}
+
+.hiddenForm #close img:hover {
+    filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
 }
 
 .hiddenForm #close img {
@@ -252,23 +388,40 @@ label[for="bookNotRead"] {
     transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 
-.hiddenForm form .addBook:not(:hover) {
-    background-color: aqua;
-    color: black;
-    border: none;
-    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-}
-
 .hiddenForm #receiptItems {
     grid-column: 2 / 3;
     grid-row: 2 / 3;
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
     border-right: solid 1px #a1a1a1;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    z-index: 9999;
 }
 
-.hiddenForm #receiptItems .bookItem {
+.hiddenForm #receiptItems::-webkit-scrollbar {
+    width: 4px;
+}
+
+.hiddenForm #receiptItems::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.hiddenForm #receiptItems::-webkit-scrollbar-thumb {
+    background-color: aqua;
+    border: none;
+    border-radius: 2px;
+}
+
+.hiddenForm .receiptItemsRed::-webkit-scrollbar-thumb {
+    background-color: red !important;
+    border: none;
+    border-radius: 2px;
+}
+
+.hiddenForm #receiptItems .bookRItem {
     background-color: #222222;
     border-radius: 10px;
     font-size: 15px;
@@ -279,6 +432,184 @@ label[for="bookNotRead"] {
     overflow: hidden;
     white-space: nowrap;
     flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+.hiddenForm #receiptItems .bookRItem #name {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+}
+
+.hiddenForm #receiptItems .bookRItem #author {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+}
+
+.hiddenForm #receiptItems .bookRItem #read {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+}
+
+.hiddenForm #receiptItems .bookRItem:hover {
+    box-shadow: -4px 4px 5px aqua;
+    position: relative;
+    bottom: 2.5px;
+    left: 2.5px;
+    transition: box-shadow 0.1s ease-in-out, bottom 0.1s ease-in-out, left 0.1s ease-in-out;
+}
+
+.hiddenForm #receiptItems .bookRItem:not(:hover) {
+    box-shadow: none;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transition: box-shadow 0.3s ease-in-out, bottom 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.hiddenForm #receiptItems .redItem {
+    z-index: 9999;
+}
+
+.hiddenForm #receiptItems .redItem:hover {
+    box-shadow: -4px 4px 5px red;
+    position: relative;
+    bottom: 2.5px;
+    left: 2.5px;
+    transition: box-shadow 0.1s ease-in-out, bottom 0.1s ease-in-out, left 0.1s ease-in-out;
+}
+
+.hiddenForm #receiptItems .redItem:not(:hover) {
+    box-shadow: none;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transition: box-shadow 0.3s ease-in-out, bottom 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.hiddenForm .deleteReceipt {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    margin: auto;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+    visibility: hidden;
+}
+
+.hiddenForm .trashReveal {
+    grid-column: 2 / 3;
+    grid-row: 1 / 4;
+    margin: auto;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+    visibility: visible;
+}
+
+.hiddenForm .deleteReceipt img {
+    position: relative;
+    top: 2px;
+    left: 1px;
+    filter: invert(40%);
+    cursor: pointer;
+}
+
+.hiddenForm .trashReveal img:hover {
+    filter: invert(100%);
+}
+
+.hiddenForm #finalAdd {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    width: 35px;
+    height: 220px;
+    padding: 0;
+    margin: 0;
+    margin-left: 5px;
+    margin-top: 40px;
+    border: none;
+    border-radius: 5px;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    font-weight: bold;
+    font-size: 13px;
+    overflow: hidden;
+    background-color: aqua;
+}
+
+.hiddenForm #finalAdd:hover {
+    cursor: pointer;
+    background-color: transparent;
+    color: aqua;
+    border: solid 1px aqua;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
+
+.hiddenForm #master {
+    grid-row: 2 / 3;
+    grid-column: 3 / 4;
+    position: relative;
+    top: 270px;
+    left: 3px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+}
+
+.hiddenForm .notRed {
+    position: relative;
+    top: 2px;
+    left: 1px;
+    filter: invert(40%);
+    cursor: pointer;
+}
+
+.hiddenForm .red {
+    z-index: 9999;
+    filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
+}
+
+.hiddenForm .notRed:hover {
+    filter: invert(100%);
+}
+
+.hiddenForm .red:hover {
+    filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
+}
+
+.hiddenForm .unblur {
+    position: fixed;
+    top: -100vh;
+    left: -100vw;
+    height: 300vh;
+    width: 300vw;
+    z-index: 9998;
+    background-color: #22222250;
+    backdrop-filter: blur(5px);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.hiddenForm .blurR {
+    position: fixed;
+    top: -100vh;
+    left: -100vw;
+    height: 300vh;
+    width: 300vw;
+    z-index: 9998;
+    background-color: #22222250;
+    backdrop-filter: blur(5px);
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
 }
 
 strong {
