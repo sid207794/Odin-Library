@@ -51,6 +51,11 @@ function displayBookInLibrary() {
         const read = myLibrary[i].read;
         bookRead.innerHTML = `<strong>Status:</strong> ${read}`;
         bookItem.appendChild(bookRead);
+
+        const deleteShelf = document.createElement("button");
+        deleteShelf.setAttribute("class", "deleteShelf");
+        deleteShelf.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
+        bookItem.appendChild(deleteShelf);
     }
 }
 
@@ -79,22 +84,23 @@ newBook.addEventListener("click", () => {
     hiddenForm.style.border = "dashed white";
     hiddenForm.style.opacity = "0";
     hiddenForm.style.transition = "opacity 0.4s ease-in-out";
-    hiddenForm.style.zIndex = "9999";
+    hiddenForm.style.zIndex = "9997";
     setTimeout(() => {
         hiddenForm.style.opacity = "1";
     }, 10);
 
     const blur = document.querySelector(".blur");
 
-    blur.style.height = "100vh";
-    blur.style.width = "100vw";
+    blur.style.height = "300vh";
+    blur.style.width = "300vw";
     blur.style.backgroundColor = "#22222250";
     blur.style.backdropFilter = "blur(10px)"
     blur.style.position = "fixed"
     blur.style.top = "0";
+    blur.style.left = "0";
     blur.style.opacity = "0";
     blur.style.transition = "opacity 0.3s ease-in-out";
-    blur.style.zIndex = "9998"
+    blur.style.zIndex = "9996"
     setTimeout(() => {
         blur.style.opacity = "1";
     }, 10);
@@ -110,6 +116,10 @@ newBook.addEventListener("click", () => {
     const closeButton = document.createElement("button");
     closeButton.setAttribute("id", "close");
     closeButton.innerHTML = `<img src="./images/close.svg" alt="close">`;
+
+    const addtoLibrary = document.createElement("button");
+    addtoLibrary.setAttribute("id", "finalAdd");
+    addtoLibrary.textContent = "ADD TO LIBRARY";
 
     const formElement = document.createElement("form");
 
@@ -204,9 +214,16 @@ newBook.addEventListener("click", () => {
     addToList.classList.add("addBook");
     addToList.setAttribute("type", "submit");
     addToList.textContent = "Add Book >";
+
+    // Delete Button
+    const deleteMaster = document.createElement("button");
+    deleteMaster.setAttribute("id", "master");
+    deleteMaster.innerHTML = `<img class = "notRed" src="./images/trash-can-outline.svg" alt="Select Delete Switch">`;
     
     hiddenForm.appendChild(formHeading);
     hiddenForm.appendChild(formReceiptHeading);
+    hiddenForm.appendChild(addtoLibrary);
+    hiddenForm.appendChild(deleteMaster);
     hiddenForm.appendChild(closeButton);
     hiddenForm.appendChild(formElement);
     formElement.appendChild(bookNameInput);
@@ -298,8 +315,8 @@ newBook.addEventListener("click", () => {
     function addBookToReceipt() {
         let i = myLibrary.length;
         const bookReceiptDiv = document.createElement("div");
-        bookReceiptDiv.setAttribute("id", `book${i}`);
-        bookReceiptDiv.setAttribute("class", "bookItem");
+        bookReceiptDiv.setAttribute("id", `bookR${i}`);
+        bookReceiptDiv.setAttribute("class", "bookRItem");
         bookReceipt.appendChild(bookReceiptDiv);
 
         const bookReceiptName = document.createElement("div");
@@ -319,8 +336,14 @@ newBook.addEventListener("click", () => {
         const read = myLibrary[i-1].read;
         bookReceiptRead.innerHTML = `<strong>Status:</strong> ${read}`;
         bookReceiptDiv.appendChild(bookReceiptRead);
+
+        const deleteElement = document.createElement("button");
+        deleteElement.setAttribute("class", "deleteReceipt");
+        deleteElement.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
+        bookReceiptDiv.appendChild(deleteElement);
     }
 
+    // Submit/Reset Form Button Event Listener
     formElement.addEventListener("submit", function (event) {
         const selectedRadio = document.querySelector('input[name="status"]:checked');
         const inputR = selectedRadio ? selectedRadio.value : null;
@@ -328,6 +351,62 @@ newBook.addEventListener("click", () => {
         addBookToReceipt();
         event.preventDefault();
         event.target.reset();
+    });
+
+    // Add To Library Button Event Listener
+    const bookDetail = document.querySelector(".book.detail");
+
+    addtoLibrary.addEventListener("click", () => {
+        if (bookDetail.hasChildNodes()) {
+            bookDetail.replaceChildren();
+        }
+
+        displayBookInLibrary();
+
+        hiddenForm.style.opacity = "1";
+        hiddenForm.style.transition = "opacity 0.4s ease-in-out";
+        setTimeout(() => {
+            hiddenForm.style.opacity = "0";
+        }, 10);
+
+        blur.style.opacity = "1";
+        blur.style.transition = "opacity 0.3s ease-in-out";
+        setTimeout(() => {
+            blur.style.opacity = "0";
+        }, 10);
+
+        setTimeout(() => {
+            hiddenForm.remove();
+            blur.remove();
+        }, 120);
+    });
+
+    // Master Delete Event Listener
+    const trashMaster = document.querySelector(".notRed");
+
+    const blurReceipt = document.createElement("div");
+    blurReceipt.classList.add("unblur");
+    hiddenForm.appendChild(blurReceipt);
+
+    trashMaster.addEventListener("click", () => {
+        if (bookReceipt.children.length !== 0) {
+            trashMaster.classList.toggle("red");
+        
+            const receiptElement = document.querySelectorAll(".bookRItem");
+            const deleteRCard = document.querySelectorAll(".deleteReceipt");
+
+            blurReceipt.classList.toggle("blurR");
+
+            receiptElement.forEach(card => {
+                card.classList.toggle("redItem");
+            });
+
+            deleteRCard.forEach(Rcard => {
+                Rcard.classList.toggle("trashReveal");
+            });
+
+            bookReceipt.classList.toggle("receiptItemsRed");
+        }
     });
 });
 
