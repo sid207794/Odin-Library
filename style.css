@@ -547,7 +547,7 @@ label[for="bookNotRead"] {
     filter: invert(100%);
 }
 
-.hiddenForm #finalAdd {
+.hiddenForm .finalAdd {
     grid-column: 3 / 4;
     grid-row: 2 / 3;
     width: 35px;
@@ -566,7 +566,7 @@ label[for="bookNotRead"] {
     background-color: aqua;
 }
 
-.hiddenForm #finalAdd:hover {
+.hiddenForm .finalAdd:hover {
     cursor: pointer;
     background-color: transparent;
     color: aqua;
