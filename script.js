@@ -52,6 +52,12 @@ function displayBookInLibrary() {
         bookRead.innerHTML = `<strong>Status:</strong> ${read}`;
         bookItem.appendChild(bookRead);
 
+        const bookId = document.createElement("div");
+        bookId.setAttribute("id", "crypto");
+        const crypto = myLibrary[i].id;
+        bookId.innerHTML = `<strong>UID:</strong> <span class="cryptoText">${crypto}</span>`;
+        bookItem.appendChild(bookId);
+
         const deleteShelf = document.createElement("button");
         deleteShelf.setAttribute("class", "deleteShelf");
         deleteShelf.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
@@ -59,6 +65,7 @@ function displayBookInLibrary() {
     }
 }
 
+const body = document.querySelector(".parent");
 const newBook = document.querySelector("#newBook");
 const buttonElement = document.querySelector(".button");
 
@@ -215,7 +222,7 @@ newBook.addEventListener("click", () => {
     addToList.setAttribute("type", "submit");
     addToList.textContent = "Add Book >";
 
-    // Delete Button
+    // Delete Button Receipt
     const deleteMaster = document.createElement("button");
     deleteMaster.setAttribute("id", "master");
     deleteMaster.innerHTML = `<img class = "notRed" src="./images/trash-can-outline.svg" alt="Select Delete Switch">`;
@@ -337,6 +344,12 @@ newBook.addEventListener("click", () => {
         bookReceiptRead.innerHTML = `<strong>Status:</strong> ${read}`;
         bookReceiptDiv.appendChild(bookReceiptRead);
 
+        const bookReceiptId = document.createElement("div");
+        bookReceiptId.setAttribute("id", "crypto");
+        const crypto = myLibrary[i-1].id;
+        bookReceiptId.innerHTML = `<strong>UID:</strong> <span class="cryptoText">${crypto}</span>`;
+        bookReceiptDiv.appendChild(bookReceiptId);
+
         const deleteElement = document.createElement("button");
         deleteElement.setAttribute("class", "deleteReceipt");
         deleteElement.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
@@ -389,7 +402,7 @@ newBook.addEventListener("click", () => {
     hiddenForm.appendChild(blurReceipt);
 
     trashMaster.addEventListener("click", () => {
-        if (bookReceipt.children.length !== 0) {
+        if (bookReceipt.children.length !== 0 || bookReceipt.children.length === 0) {
             trashMaster.classList.toggle("red");
         
             const receiptElement = document.querySelectorAll(".bookRItem");
@@ -406,8 +419,121 @@ newBook.addEventListener("click", () => {
             });
 
             bookReceipt.classList.toggle("receiptItemsRed");
+
+            // Delete Receipt
+            const deletefinalR = document.querySelectorAll(".deleteReceipt img");
+
+            deletefinalR.forEach(cardR => {
+                cardR.addEventListener("click", () => {
+                    if (bookReceipt.children.length === 1) {
+                        bookReceipt.replaceChildren();
+                        myLibrary.length = 0;
+                        trashMaster.classList.toggle("red");
+                        blurReceipt.classList.toggle("blurR");
+                        receiptElement.forEach(card => {
+                            card.classList.toggle("redItem");
+                        });
+                        
+                        deleteRCard.forEach(Rcard => {
+                            Rcard.classList.toggle("trashReveal");
+                        });
+            
+                        bookReceipt.classList.toggle("receiptItemsRed");
+                    } else {
+                        let parentR = cardR.parentElement;
+                        let gParentR = parentR.parentElement.id;
+                        let cryptoTextR = document.querySelector(`#${gParentR} .cryptoText`);
+                        let cryptoTextContentR = cryptoTextR.textContent;
+    
+                        const itemIndex = myLibrary.findIndex(item => item.id === cryptoTextContentR);
+                        myLibrary.splice(itemIndex, 1);
+                        
+                        let gParentRemove = document.querySelector(`#${gParentR}`);
+                        gParentRemove.remove();
+
+                        const children = Array.from(bookReceipt.children);
+                        children.forEach((child, index) => {
+                            const newId = `bookR${index+1}`;
+                            child.id = newId;
+                        });
+                    }
+                });
+            });
         }
     });
+});
+
+// Delete Button Home  
+const bodyParent = document.querySelector(".parent .lineHR");
+
+const deleteMasterHome = document.createElement("button");
+deleteMasterHome.setAttribute("id", "masterHome");
+deleteMasterHome.innerHTML = `<img class = "notRedHome" src="./images/trash-can-outline.svg" alt="Select Delete Switch">`;
+bodyParent.appendChild(deleteMasterHome);
+
+// Delete Home Event Listener
+const trashMasterHome = document.querySelector(".notRedHome");
+const bookDetail = document.querySelector(".book.detail");
+
+const blurHome = document.createElement("div");
+blurHome.classList.add("unblurHome");
+body.appendChild(blurHome);
+
+trashMasterHome.addEventListener("click", () => {
+    if (bookDetail.children.length !== 0 || bookDetail.children.length === 0) {
+        trashMasterHome.classList.toggle("redHome");
+    
+        const homeElement = document.querySelectorAll(".bookItem");
+        const deleteHomeCard = document.querySelectorAll(".deleteShelf");
+
+        blurHome.classList.toggle("blurHome");
+
+        homeElement.forEach(cardHome => {
+            cardHome.classList.toggle("redItemHome");
+        });
+
+        deleteHomeCard.forEach(homeCard => {
+            homeCard.classList.toggle("trashRevealHome");
+        });
+
+        // Delete Receipt
+        const deletefinalHome = document.querySelectorAll(".deleteShelf img");
+
+        deletefinalHome.forEach(cardH => {
+            cardH.addEventListener("click", () => {
+                if (bookDetail.children.length === 1) {
+                    bookDetail.replaceChildren();
+                    myLibrary.length = 0;
+                    trashMasterHome.classList.toggle("redHome");
+                    blurHome.classList.toggle("blurHome");
+                    homeElement.forEach(cardHome => {
+                        cardHome.classList.toggle("redItemHome");
+                    });
+            
+                    deleteHomeCard.forEach(homeCard => {
+                        homeCard.classList.toggle("trashRevealHome");
+                    });
+                } else {
+                    let parentH = cardH.parentElement;
+                    let gParentH = parentH.parentElement.id;
+                    let cryptoTextH = document.querySelector(`#${gParentH} .cryptoText`);
+                    let cryptoTextContentH = cryptoTextH.textContent;
+
+                    const itemIndexH = myLibrary.findIndex(itemH => itemH.id === cryptoTextContentH);
+                    myLibrary.splice(itemIndexH, 1);
+                    
+                    let gParentRemoveH = document.querySelector(`#${gParentH}`);
+                    gParentRemoveH.remove();
+
+                    const childrenH = Array.from(bookDetail.children);
+                    childrenH.forEach((childH, indexH) => {
+                        const newIdH = `book${indexH+1}`;
+                        childH.id = newIdH;
+                    });
+                }
+            });
+        });
+    }
 });
 
 console.log(myLibrary);
