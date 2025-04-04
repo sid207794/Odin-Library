@@ -1,0 +1,1 @@
+Known issue: After deleting a book and adding more, card deletion might behave weirdly. Fix later by switching to full re-render.
