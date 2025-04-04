@@ -62,8 +62,36 @@ function displayBookInLibrary() {
         deleteShelf.setAttribute("class", "deleteShelf");
         deleteShelf.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
         bookItem.appendChild(deleteShelf);
+        
+        const swap = document.createElement("button");
+        swap.setAttribute("class", "swap");
+        swap.textContent = `${read}`.toUpperCase();
+        bookItem.appendChild(swap);
     }
 }
+
+// Swap Event Listener
+document.querySelector(".book.detail").addEventListener("click", function (event) {
+    if (event.target.classList.contains("swap")) {
+        let swap = event.target;
+        let parentChild = swap.closest(".bookItem");
+        let bookRead = parentChild.querySelector("#read");
+
+        if (swap.textContent === "READ") {
+            swap.textContent = "NOT READ";
+            swap.style.backgroundColor = "transparent";
+            swap.style.color = "aqua";
+            swap.style.border = "solid 2px aqua";
+            bookRead.innerHTML = `<strong>Status:</strong> Not Read`;
+        } else if (swap.textContent === "NOT READ") {
+            swap.textContent = "READ";
+            swap.style.backgroundColor = "aqua";
+            swap.style.color = "black";
+            swap.style.border = "none";
+            bookRead.innerHTML = `<strong>Status:</strong> Read`;
+        }
+    }
+});
 
 const body = document.querySelector(".parent");
 const newBook = document.querySelector("#newBook");
@@ -205,6 +233,7 @@ newBook.addEventListener("click", () => {
     inputRead.setAttribute("id", "bookRead");
     inputRead.setAttribute("name", "status");
     inputRead.setAttribute("value", "Read");
+    inputRead.setAttribute("required", "");
 
     const labelNotRead = document.createElement("label");
     labelNotRead.setAttribute("for", "bookNotRead");
@@ -215,6 +244,7 @@ newBook.addEventListener("click", () => {
     inputNotRead.setAttribute("id", "bookNotRead");
     inputNotRead.setAttribute("name", "status");
     inputNotRead.setAttribute("value", "Not Read");
+    inputNotRead.setAttribute("required", "");
 
     // Add Book Button
     const addToList = document.createElement("button");
@@ -446,6 +476,7 @@ newBook.addEventListener("click", () => {
                         let gParentR = parentR.parentElement.id;
                         let cryptoTextR = document.querySelector(`#${gParentR} .cryptoText`);
                         let cryptoTextContentR = cryptoTextR.textContent;
+                        console.log(gParentR);
     
                         const itemIndex = myLibrary.findIndex(item => item.id === cryptoTextContentR);
                         myLibrary.splice(itemIndex, 1);
@@ -468,10 +499,14 @@ newBook.addEventListener("click", () => {
 // Delete Button Home  
 const bodyParent = document.querySelector(".parent .lineHR");
 
+const masterFloat = document.createElement("div");
+masterFloat.setAttribute("class", "masterFloat");
+bodyParent.appendChild(masterFloat);
+
 const deleteMasterHome = document.createElement("button");
 deleteMasterHome.setAttribute("id", "masterHome");
 deleteMasterHome.innerHTML = `<img class = "notRedHome" src="./images/trash-can-outline.svg" alt="Select Delete Switch">`;
-bodyParent.appendChild(deleteMasterHome);
+masterFloat.appendChild(deleteMasterHome);
 
 // Delete Home Event Listener
 const trashMasterHome = document.querySelector(".notRedHome");
@@ -487,6 +522,7 @@ trashMasterHome.addEventListener("click", () => {
     
         const homeElement = document.querySelectorAll(".bookItem");
         const deleteHomeCard = document.querySelectorAll(".deleteShelf");
+        const phase = document.querySelectorAll(".swap");
 
         blurHome.classList.toggle("blurHome");
 
@@ -496,6 +532,10 @@ trashMasterHome.addEventListener("click", () => {
 
         deleteHomeCard.forEach(homeCard => {
             homeCard.classList.toggle("trashRevealHome");
+        });
+
+        phase.forEach(stat => {
+            stat.classList.toggle("phase");
         });
 
         // Delete Receipt
