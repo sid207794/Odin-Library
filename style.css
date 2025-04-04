@@ -93,16 +93,6 @@ body {
     cursor: default;
 }
 
-.shelf:hover {
-    letter-spacing: 20px;
-    transition: letter-spacing 0.3s ease-in-out;
-}
-
-.shelf:not(:hover) {
-    letter-spacing: 50px;
-    transition: letter-spacing 0.3s ease-in-out;
-}
-
 .parent .cards {
     display: flex;
 }
@@ -146,6 +136,11 @@ body {
     grid-row: 4 / 5;
 }
 
+#crypto {
+    font-size: 8px;
+    filter: invert(50%);
+}
+
 .bookItem .deleteShelf {
     grid-column: 2 / 3;
     grid-row: 1 / 5;
@@ -155,6 +150,7 @@ body {
     border: none;
     border-radius: 100%;
     background-color: transparent;
+    visibility: hidden;
 }
 
 .bookItem .deleteShelf img {
@@ -471,7 +467,19 @@ label[for="bookNotRead"] {
     z-index: 9999;
 }
 
+.book.detail .redItemHome {
+    z-index: 9995;
+}
+
 .hiddenForm #receiptItems .redItem:hover {
+    box-shadow: -8px 8px 10px red;
+    position: relative;
+    bottom: 5px;
+    left: 5px;
+    transition: box-shadow 0.1s ease-in-out, bottom 0.1s ease-in-out, left 0.1s ease-in-out;
+}
+
+.book.detail .redItemHome:hover {
     box-shadow: -4px 4px 5px red;
     position: relative;
     bottom: 2.5px;
@@ -480,6 +488,14 @@ label[for="bookNotRead"] {
 }
 
 .hiddenForm #receiptItems .redItem:not(:hover) {
+    box-shadow: none;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    transition: box-shadow 0.3s ease-in-out, bottom 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.book.detail .redItemHome:not(:hover) {
     box-shadow: none;
     position: relative;
     bottom: 0;
@@ -511,6 +527,10 @@ label[for="bookNotRead"] {
     visibility: visible;
 }
 
+.parent .trashRevealHome {
+    visibility: visible;
+}
+
 .hiddenForm .deleteReceipt img {
     position: relative;
     top: 2px;
@@ -520,6 +540,10 @@ label[for="bookNotRead"] {
 }
 
 .hiddenForm .trashReveal img:hover {
+    filter: invert(100%);
+}
+
+.parent .trashRevealHome img:hover {
     filter: invert(100%);
 }
 
@@ -563,7 +587,25 @@ label[for="bookNotRead"] {
     background-color: transparent;
 }
 
+.parent #masterHome {
+    position: relative;
+    left: 717px;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 100%;
+    background-color: transparent;
+}
+
 .hiddenForm .notRed {
+    position: relative;
+    top: 2px;
+    left: 1px;
+    filter: invert(40%);
+    cursor: pointer;
+}
+
+.parent .notRedHome {
     position: relative;
     top: 2px;
     left: 1px;
@@ -584,6 +626,19 @@ label[for="bookNotRead"] {
     filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
 }
 
+.parent .redHome {
+    z-index: 9995;
+    filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
+}
+
+.parent .notRedHome:hover {
+    filter: invert(100%);
+}
+
+.parent .redHome:hover {
+    filter: invert(28%) sepia(91%) saturate(7486%) hue-rotate(1deg);
+}
+
 .hiddenForm .unblur {
     position: fixed;
     top: -100vh;
@@ -598,6 +653,20 @@ label[for="bookNotRead"] {
     transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
+.parent .unblurHome {
+    position: fixed;
+    top: -100vh;
+    left: -100vw;
+    height: 300vh;
+    width: 300vw;
+    z-index: 9994;
+    background-color: #22222250;
+    backdrop-filter: blur(5px);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
 .hiddenForm .blurR {
     position: fixed;
     top: -100vh;
@@ -605,6 +674,20 @@ label[for="bookNotRead"] {
     height: 300vh;
     width: 300vw;
     z-index: 9998;
+    background-color: #22222250;
+    backdrop-filter: blur(5px);
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.parent .blurHome {
+    position: fixed;
+    top: -100vh;
+    left: -100vw;
+    height: 300vh;
+    width: 300vw;
+    z-index: 9994;
     background-color: #22222250;
     backdrop-filter: blur(5px);
     visibility: visible;
