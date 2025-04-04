@@ -125,7 +125,7 @@ newBook.addEventListener("click", () => {
     closeButton.innerHTML = `<img src="./images/close.svg" alt="close">`;
 
     const addtoLibrary = document.createElement("button");
-    addtoLibrary.setAttribute("id", "finalAdd");
+    addtoLibrary.setAttribute("class", "finalAdd");
     addtoLibrary.textContent = "ADD TO LIBRARY";
 
     const formElement = document.createElement("form");
@@ -370,28 +370,30 @@ newBook.addEventListener("click", () => {
     const bookDetail = document.querySelector(".book.detail");
 
     addtoLibrary.addEventListener("click", () => {
-        if (bookDetail.hasChildNodes()) {
-            bookDetail.replaceChildren();
+        if (bookReceipt.children.length !== 0) {
+            if (bookDetail.hasChildNodes()) {
+                bookDetail.replaceChildren();
+            }
+
+            displayBookInLibrary();
+
+            hiddenForm.style.opacity = "1";
+            hiddenForm.style.transition = "opacity 0.4s ease-in-out";
+            setTimeout(() => {
+                hiddenForm.style.opacity = "0";
+            }, 10);
+
+            blur.style.opacity = "1";
+            blur.style.transition = "opacity 0.3s ease-in-out";
+            setTimeout(() => {
+                blur.style.opacity = "0";
+            }, 10);
+
+            setTimeout(() => {
+                hiddenForm.remove();
+                blur.remove();
+            }, 120);
         }
-
-        displayBookInLibrary();
-
-        hiddenForm.style.opacity = "1";
-        hiddenForm.style.transition = "opacity 0.4s ease-in-out";
-        setTimeout(() => {
-            hiddenForm.style.opacity = "0";
-        }, 10);
-
-        blur.style.opacity = "1";
-        blur.style.transition = "opacity 0.3s ease-in-out";
-        setTimeout(() => {
-            blur.style.opacity = "0";
-        }, 10);
-
-        setTimeout(() => {
-            hiddenForm.remove();
-            blur.remove();
-        }, 120);
     });
 
     // Master Delete Event Listener
