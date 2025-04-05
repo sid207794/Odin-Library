@@ -63,10 +63,23 @@ function displayBookInLibrary() {
         deleteShelf.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
         bookItem.appendChild(deleteShelf);
         
-        const swap = document.createElement("button");
-        swap.setAttribute("class", "swap");
-        swap.textContent = `${read}`.toUpperCase();
-        bookItem.appendChild(swap);
+        if (read === "Read") {
+            const swap = document.createElement("button");
+            swap.setAttribute("class", "swap");
+            swap.textContent = `${read}`.toUpperCase();
+            swap.style.backgroundColor = "aqua";
+            swap.style.color = "black";
+            swap.style.border = "none";
+            bookItem.appendChild(swap);
+        } else if (read === "Not Read") {
+            const swap = document.createElement("button");
+            swap.setAttribute("class", "swap");
+            swap.textContent = `${read}`.toUpperCase();
+            swap.style.backgroundColor = "transparent";
+            swap.style.color = "aqua";
+            swap.style.border = "solid 2px aqua";
+            bookItem.appendChild(swap);
+        }
     }
 }
 
