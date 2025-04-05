@@ -382,7 +382,7 @@ newBook.addEventListener("click", () => {
 
         const deleteElement = document.createElement("button");
         deleteElement.setAttribute("class", "deleteReceipt");
-        deleteElement.innerHTML = `<img src="./images/delete.svg" alt="delete">`;
+        deleteElement.innerHTML = `<img class="image" src="./images/delete.svg" alt="delete">`;
         bookReceiptDiv.appendChild(deleteElement);
     }
 
@@ -453,7 +453,7 @@ newBook.addEventListener("click", () => {
             bookReceipt.classList.toggle("receiptItemsRed");
 
             // Delete Receipt
-            const deletefinalR = document.querySelectorAll(".deleteReceipt img");
+            const deletefinalR = document.querySelectorAll(".deleteReceipt .image");
 
             deletefinalR.forEach(cardR => {
                 cardR.addEventListener("click", () => {
